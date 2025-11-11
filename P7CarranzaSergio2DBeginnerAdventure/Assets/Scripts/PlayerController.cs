@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class PlayerControllerTutorialUpdates : MonoBehaviour
 {
     public InputAction LeftAction;
+    public InputAction MoveAction;
     
     // Start is called before the first frame update
     void Start()
     {
-        
-       LeftAction.Enable();
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 10;
+        //Vector2 position = (Vector2)transform.position + move * 0.1f * Time.deltaTime;
+        //Vector2 position = (Vector2)transform.position + move * 3.0f * Time.deltaTime;
+
+        LeftAction.Enable();
         if (LeftAction.IsPressed())
         {
             //Horizontal = -1.0;
@@ -52,6 +57,14 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         position.x = position.x + 0.1f * horizontal;
         position.y = position.y + 0.1f * vertical;
         transform.position = position;
+
+        {
+            Vector2 move = MoveAction.ReadValue<Vector2>();
+            Debug.Log(move);
+            //Vector2 position = (Vector2)transform.position + move * 0.1f;
+            transform.position = position;
+        }
+        
     }
-}
+}      
 
