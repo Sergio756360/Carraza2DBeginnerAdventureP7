@@ -8,7 +8,11 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 {
     public InputAction LeftAction;
     public InputAction MoveAction;
-    
+
+    Rigidbody2D rigidbody2d;
+    Vector2 move;
+     
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -22,13 +26,19 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         {
             //Horizontal = -1.0;
         }
+
         
-      
     }
 
     // Update is called once per frame
     void Update()
     {
+        {
+
+            rigidbody2d = GetComponent<Rigidbody2D>();
+            Debug.Log(move);
+
+        } 
 
         float horizontal = 0.0f;
         if (Keyboard.current.leftArrowKey.isPressed)
@@ -64,7 +74,8 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
             //Vector2 position = (Vector2)transform.position + move * 0.1f;
             transform.position = position;
         }
-        
+       
+
     }
 }      
 
