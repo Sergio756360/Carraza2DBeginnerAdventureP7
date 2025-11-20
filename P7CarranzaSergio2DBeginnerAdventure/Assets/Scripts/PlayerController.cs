@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public class PlayerControllerTutorialUpdates : MonoBehaviour
 {
-    public InputAction LeftAction;
     public InputAction MoveAction;
 
     Rigidbody2D rigidbody2d;
     Vector2 move;
-     
-  
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,11 +20,7 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         //Vector2 position = (Vector2)transform.position + move * 0.1f * Time.deltaTime;
         //Vector2 position = (Vector2)transform.position + move * 3.0f * Time.deltaTime;
 
-        LeftAction.Enable();
-        if (LeftAction.IsPressed())
-        {
-            //Horizontal = -1.0;
-        }
+        MoveAction.Enable();
 
         
     }
@@ -34,46 +29,25 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
     void Update()
     {
         {
-
-            rigidbody2d = GetComponent<Rigidbody2D>();
-            Debug.Log(move);
-
-        } 
-
-        float horizontal = 0.0f;
-        if (Keyboard.current.leftArrowKey.isPressed)
-        {
-            horizontal = -1.0f; 
-        }
-        else if (Keyboard.current.rightArrowKey.isPressed)
-        {
-            horizontal = 1.0f;
+            
+           rigidbody2d = GetComponent<Rigidbody2D>();
         }
 
-        Debug.Log(horizontal);
-
-        float vertical = 0.0f;
-        if (Keyboard.current.upArrowKey.isPressed)
+        //void FixedUpdate()
         {
-            vertical = 1.0f;
-        }
-        else if (Keyboard.current.downArrowKey.isPressed)
-        {
-            vertical = -1.0f;
-        }
-        Debug.Log(vertical);
 
-        Vector2 position = transform.position;
-        position.x = position.x + 5.0f * horizontal * Time.deltaTime;
-        position.y = position.y + 5.0f * vertical * Time.deltaTime;
-        transform.position = position;
+            //Vector2 position = (Vector2)rigidbody2d.position + move * 3.0f * Time.delttatime; 
+            //rigidbody2d.MovePosition(position);
 
-        {
-            Vector2 move = MoveAction.ReadValue<Vector2>();
-            Debug.Log(move);
-            //Vector2 position = (Vector2)transform.position + move * 0.1f;
-            transform.position = position;
         }
+
+
+
+         Vector2 move = MoveAction.ReadValue<Vector2>();
+         Debug.Log(move);
+         Vector2 position = (Vector2)transform.position + move * 3f * Time.deltaTime;
+         transform.position = position;
+        
        
 
     }
