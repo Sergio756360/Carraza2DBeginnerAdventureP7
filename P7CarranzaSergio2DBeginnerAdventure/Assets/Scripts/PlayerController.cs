@@ -10,6 +10,13 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
     Rigidbody2D rigidbody2d;
     Vector2 move;
+    public float speed = 3.0f;
+
+    public int maxHealth = 5;
+    int currentHealth;
+    
+    public int health { get { return currentHealth; } }
+    //int currentHealth = 1;
 
 
     // Start is called before the first frame update
@@ -20,9 +27,11 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         //Vector2 position = (Vector2)transform.position + move * 0.1f * Time.deltaTime;
         //Vector2 position = (Vector2)transform.position + move * 3.0f * Time.deltaTime;
 
-        MoveAction.Enable();
 
-        
+        MoveAction.Enable();
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+
     }
 
     // Update is called once per frame
@@ -31,6 +40,9 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         {
             
            rigidbody2d = GetComponent<Rigidbody2D>();
+           //move = MoveAction.ReadValue<Vector2>();
+           //Debug.Log(move);
+
         }
 
         //void FixedUpdate()
@@ -47,8 +59,13 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
          Debug.Log(move);
          Vector2 position = (Vector2)transform.position + move * 3f * Time.deltaTime;
          transform.position = position;
+
         
-       
+        //void ChangeHealth (int amount)
+        {
+            //currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+            Debug.Log(currentHealth + "/" + maxHealth);
+        }
 
     }
 }      
