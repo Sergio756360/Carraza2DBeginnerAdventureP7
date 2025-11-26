@@ -14,7 +14,12 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
     public int maxHealth = 5;
     int currentHealth;
-    
+
+    // Variables related to temporary invincibility
+    public float timeInvincible = 2.0f;
+    bool isInvincible;
+    float damageCooldown;
+
     public int health { get { return currentHealth; } }
     //int currentHealth = 1;
 
@@ -45,6 +50,17 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
         }
 
+        if (isInvincible)
+            damageCooldown -= Time.deltaTime;
+        if (damageCooldown < 0)
+
+        {
+            isInvincible = false;
+
+        }
+
+
+        // FixedUpdate has the same call rate as the physics system
         //void FixedUpdate()
         {
 
@@ -60,12 +76,28 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
          Vector2 position = (Vector2)transform.position + move * 3f * Time.deltaTime;
          transform.position = position;
 
-        
-        //void ChangeHealth (int amount)
+        //public void ChangeHealth(int amount) 
+
+        {
+
+            //if (if (amount < 0))
+            if (isInvincible)
+                return;
+
+            isInvincible = true;
+            damageCooldown = timeInvincible;
+
+        }
+
+ 
         {
             //currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-            Debug.Log(currentHealth + "/" + maxHealth);
+            //UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth); 
         }
+
+       
+
+
 
     }
 }      
