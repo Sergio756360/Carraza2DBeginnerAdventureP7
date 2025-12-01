@@ -10,6 +10,7 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
     Rigidbody2D rigidbody2d;
     Vector2 move;
+
     public float speed = 3.0f;
 
     public int maxHealth = 5;
@@ -32,10 +33,9 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         //Vector2 position = (Vector2)transform.position + move * 0.1f * Time.deltaTime;
         //Vector2 position = (Vector2)transform.position + move * 3.0f * Time.deltaTime;
 
-
         MoveAction.Enable();
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        currentHealth = maxHealth;
+        //rigidbody2d = GetComponent<Rigidbody2D>();
+        //currentHealth = maxHealth;
 
     }
 
@@ -61,6 +61,7 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
 
         // FixedUpdate has the same call rate as the physics system
+
         //void FixedUpdate()
         {
 
