@@ -65,7 +65,7 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         //void FixedUpdate()
         {
 
-            //Vector2 position = (Vector2)rigidbody2d.position + move * 3.0f * Time.delttatime; 
+            //Vector2 position = (Vector2)rigidbody2d.position + move * 3.0f * Time.deltaTime; 
             //rigidbody2d.MovePosition(position);
 
         }
