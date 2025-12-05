@@ -5,13 +5,15 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 //Vector2 moveDirection = new Vector2(1, 0);
-public class PlayerControllerTutorialUpdates : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     Animator animator;
     public InputAction MoveAction;
+    public GameObject projectilePrefab;
 
     Rigidbody2D rigidbody2d;
     Vector2 move;
+    Vector2 moveDirection = new Vector2(1, 0);
 
     public float speed = 3.0f;
 
@@ -36,29 +38,34 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
         //Vector2 position = (Vector2)transform.position + move * 3.0f * Time.deltaTime;
 
         MoveAction.Enable();
-        //rigidbody2d = GetComponent<Rigidbody2D>();
-        //currentHealth = maxHealth;
-
+        rigidbody2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        
+        currentHealth = maxHealth;
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        move = MoveAction.ReadValue<Vector2>();
+
+
         {
-            //if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
+            if (!Mathf.Approximately(move.x, 0.0f) || !Mathf.Approximately(move.y, 0.0f))
             {
-                //moveDirection.Set(move.x, move.y);
-                //moveDirection.Normalize();
+                moveDirection.Set(move.x, move.y);
+                moveDirection.Normalize();
             }
 
-            //animator.SetFloat("Look X", moveDirection.x);
-            //animator.SetFloat("Look Y", moveDirection.y);
-            //animator.SetFloat("Speed", move.magnitude);
+            animator.SetFloat("Look X", moveDirection.x);
+            animator.SetFloat("Look Y", moveDirection.y);
+            animator.SetFloat("Speed", move.magnitude);
 
-            rigidbody2d = GetComponent<Rigidbody2D>();
-            //move = MoveAction.ReadValue<Vector2>();
-            //Debug.Log(move);
+         
+    
+        
 
            
            
@@ -86,7 +93,7 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
 
 
 
-         Vector2 move = MoveAction.ReadValue<Vector2>();
+         move = MoveAction.ReadValue<Vector2>();
          Debug.Log(move);
          Vector2 position = (Vector2)transform.position + move * 3f * Time.deltaTime;
          transform.position = position;
@@ -102,6 +109,8 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
             isInvincible = true;
             damageCooldown = timeInvincible;
 
+            //animator.SetTrigger("Hit");
+
         }
 
  
@@ -110,7 +119,20 @@ public class PlayerControllerTutorialUpdates : MonoBehaviour
             //UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth); 
         }
 
-       
+        //void Launch()
+        {
+            GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+            Projectile projectile = projectileObject.GetComponent<Projectile>();
+            projectile.Launch(moveDirection, 300);
+            animator.SetTrigger("Launch");
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            //Launch();
+        }
+
+
 
 
 
