@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     public InputAction talkAction;
+    AudioSource audioSource;
 
     bool broken = true;
     Animator animator;
@@ -49,8 +50,8 @@ public class PlayerController : MonoBehaviour
 
         talkAction.Enable();
 
-        
-       
+        audioSource = GetComponent<AudioSource>(); 
+
 
     }
 
@@ -180,7 +181,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
+    }
 
-    
+
+
 }      
 
