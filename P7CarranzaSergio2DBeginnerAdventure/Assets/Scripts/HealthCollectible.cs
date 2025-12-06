@@ -7,15 +7,17 @@ using UnityEngine.Rendering;
 
 public class HealthCollectible : MonoBehaviour
 {
-
+    public AudioClip collectedClip;
 
     // Start is called before the first frame update
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        //controller.PlaySound(collectedClip);
         //PlayerController controller = other.GetComponent<PlayerController>();
-        //controller.ChangeHealth(1);
+        //controller.ChangeHealth();
         Destroy(gameObject);
+       
     }
 
     //if (controller != null && controller.health < controller.maxHealth)

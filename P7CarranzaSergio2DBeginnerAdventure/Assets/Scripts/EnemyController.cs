@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
+    public ParticleSystem smokeEffect;
     bool broken = true;
     Animator animator;
 
@@ -84,9 +85,10 @@ public class EnemyController : MonoBehaviour
     {
         broken = false;
         rigidbody2d.simulated = false;
+        smokeEffect.Stop();
     }
 
-
+   
 
 
 
