@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 //Vector2 moveDirection = new Vector2(1, 0);
 public class PlayerController : MonoBehaviour
 {
+    public InputAction talkAction;
+
+    bool broken = true;
     Animator animator;
     public InputAction MoveAction;
     public GameObject projectilePrefab;
@@ -43,6 +47,10 @@ public class PlayerController : MonoBehaviour
         
         currentHealth = maxHealth;
 
+        talkAction.Enable();
+
+        
+       
 
     }
 
@@ -63,12 +71,33 @@ public class PlayerController : MonoBehaviour
             animator.SetFloat("Look Y", moveDirection.y);
             animator.SetFloat("Speed", move.magnitude);
 
-         
-    
-        
 
-           
-           
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                FindFriend();
+            }
+
+            void FindFriend()
+            {
+                RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, moveDirection, 1.5f, LayerMask.GetMask("NPC"));
+                if (hit.collider != null)
+                {
+                    Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+                    NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                    if (character != null)
+                    {
+                        UIHandler.instance.DisplayDialogue();
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                Launch();
+            }
+
+
+
         }
 
         if (isInvincible)
@@ -119,7 +148,7 @@ public class PlayerController : MonoBehaviour
             //UIHandler.instance.SetHealthValue(currentHealth / (float)maxHealth); 
         }
 
-        //void Launch()
+        void Launch()
         {
             GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
             Projectile projectile = projectileObject.GetComponent<Projectile>();
@@ -129,13 +158,29 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            //Launch();
+            Launch();
         }
 
+        if (!broken)
+        {
+            return;
+        }
 
+        //public void Fix ()
+        {
+            broken = false;
+            rigidbody2d.simulated = false;
+        }
 
+        
 
-
+        //if (hit.collider != null)
+        {
+            //Debug.Log("Raycast has hit the object " + hit.collider.gameObject);
+        }
     }
+
+
+    
 }      
 

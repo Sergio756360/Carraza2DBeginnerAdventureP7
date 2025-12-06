@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class Projectile : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
+     Rigidbody2D rigidbody2d;
 
     // Awake is called when the Projectile GameObject is instantiated
     void Awake()
@@ -13,11 +13,14 @@ public class Projectile : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-   
     void Update()
     {
-        
+        if (transform.position.magnitude > 100.0f)
+        {
+            Destroy(gameObject);
+        }
     }
+
 
    public void Launch(Vector2 direction, float force)
    {
@@ -26,8 +29,13 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Projectile collision with " + other.gameObject);
-        Destroy(gameObject);
+        EnemyController enemy = other.GetComponent<EnemyController>();
+        if (enemy != null)
+        {
+            Destroy(gameObject);
+        }
+
+        
     }
 
 

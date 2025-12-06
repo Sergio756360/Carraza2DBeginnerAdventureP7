@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
+    bool broken = true;
     Animator animator;
 
     //Public Variables
@@ -60,7 +61,12 @@ public class EnemyController : MonoBehaviour
             animator.SetFloat("Move Y", 0);
         }
 
-        rigidbody2d.MovePosition(position);
+        if (!broken)
+        {
+            return;
+        }
+
+            rigidbody2d.MovePosition(position);
 
       //void OnTriggerEnter2D(Collider2D other)
       {
@@ -73,7 +79,15 @@ public class EnemyController : MonoBehaviour
 
       }
     }
-  
+
+    public void Fix()
+    {
+        broken = false;
+        rigidbody2d.simulated = false;
+    }
+
+
+
 
 
 }
